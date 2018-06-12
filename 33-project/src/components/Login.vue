@@ -1,16 +1,116 @@
 <template>
-  <div class="">
-
+  <div class="root-view">
+    <nav-bar class="nav-bar">
+      <span class="nav-title" slot="title">登录</span>
+    </nav-bar>
+    <div class="loginFull">
+      <div class="hd">
+        <h2>超市欢迎您</h2>
+      </div>
+      <div class="bd">
+        <el-form :model="loginForm" :rules="loginRule" ref="loginFormm">
+          <el-form-item prop="accountRule">
+            <el-input type="" v-model="loginForm.account" placeholder="帐号"></el-input>
+          </el-form-item>
+          <el-form-item prop="passRule">
+            <el-input type="password" v-model="loginForm.pass" placeholder="密码"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('loginFormm')" class="submitFormBtn">登录</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="ft">
+        <router-link to="">还没有账号？马上注册</router-link>
+        <router-link to="">忘记密码</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { NavBar } from 'vant'
+import 'vant/packages/vant-css/lib/base.css'
+import 'vant/packages/vant-css/lib/nav-bar.css'
+import '../../static/css/style.css'
 export default {
-  name: 'HelloWorld'
+  name: 'Login',
+  data () {
+    return {
+      loginForm: {
+        account: '',
+        password: ''
+      },
+      loginRule: {
+        accountRule: [
+          { required: true, message: '请输入11位手机号', trigger: 'blur' },
+          { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' }
+        ],
+        passRule: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 20, message: '长度在到 6 到 20 个数字加字母组合', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('success')
+        } else {
+          console.log('error')
+          return false
+        }
+      })
+    }
+  },
+  components: {
+    NavBar
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .loginFull {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+    font-size: 18px;
+  }
+  .loginFull .hd {
+    margin-top: 32px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+  }
+  .loginFull .hd h2{
+    font-weight: 400;
+    color: #20A0FF;
+  }
+  .loginFull .bd {
+    margin-top: 32px;
+    width: 300px;
+  }
+  .loginFull .bd .submitFormBtn {
+    width: 100%;
+  }
+  .loginFull .ft {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+  }
+  .loginFull .ft a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #20A0FF;
+  }
 </style>
