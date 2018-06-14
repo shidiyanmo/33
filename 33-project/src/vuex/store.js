@@ -5,7 +5,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     showLogin: false,
-    token: null
+    token: null,
+    user: null
   },
   mutations: {
     SHOW_LOGIN (state) {
@@ -13,6 +14,9 @@ export default new Vuex.Store({
     },
     TOKEN (state, data) {
       state.token = data
+    },
+    USER (state, data) {
+      state.user = data
     }
   },
   actions: {
@@ -21,6 +25,9 @@ export default new Vuex.Store({
     },
     token ({ commit }, data) {
       commit('TOKEN', data)
+    },
+    user ({ commit }, data) {
+      commit('USER', data)
     }
   }
 })

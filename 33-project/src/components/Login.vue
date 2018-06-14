@@ -1,6 +1,6 @@
 <template>
   <div class="root-view">
-    <nav-bar class="nav-bar">
+    <nav-bar class="nav-bar" left-text="返回">
       <span class="nav-title" slot="title">登录</span>
     </nav-bar>
     <div class="loginFull">
@@ -9,14 +9,14 @@
       </div>
       <div class="bd">
         <el-form :model="loginForm" :rules="loginRule" ref="loginFormm">
-          <el-form-item prop="accountRule">
-            <el-input type="" v-model="loginForm.account" placeholder="帐号"></el-input>
+          <el-form-item prop="userName">
+            <el-input type="userName" v-model="loginForm.userName" placeholder="帐号"></el-input>
           </el-form-item>
-          <el-form-item prop="passRule">
-            <el-input type="password" v-model="loginForm.pass" placeholder="密码"></el-input>
+          <el-form-item prop="pwd">
+            <el-input type="password" v-model="loginForm.pwd" placeholder="密码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginFormm')" class="submitFormBtn">登录</el-button>
+            <el-button type="primary" @click="submitForm('loginFormm')" class="submitBtn">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -33,20 +33,21 @@ import { NavBar } from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import '../../static/css/style.css'
+import { doLogin } from '../lib/vueHelper'
 export default {
   name: 'Login',
   data () {
     return {
       loginForm: {
-        account: '',
-        password: ''
+        userName: '',
+        pwd: ''
       },
       loginRule: {
-        accountRule: [
+        userName: [
           { required: true, message: '请输入11位手机号', trigger: 'blur' },
           { min: 11, max: 11, message: '请输入11位手机号', trigger: 'blur' }
         ],
-        passRule: [
+        pwd: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, max: 20, message: '长度在到 6 到 20 个数字加字母组合', trigger: 'blur' }
         ]
@@ -57,9 +58,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('success')
+          var data = {
+            'username': this.loginForm.account,
+            'password': this.loginForm.pass
+          }
+          doLogin(this, data)
         } else {
-          console.log('error')
+          // console.log('error')
           return false
         }
       })
@@ -98,7 +103,7 @@ export default {
     margin-top: 32px;
     width: 300px;
   }
-  .loginFull .bd .submitFormBtn {
+  .loginFull .bd .submitBtn {
     width: 100%;
   }
   .loginFull .ft {
