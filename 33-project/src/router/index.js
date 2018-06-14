@@ -136,12 +136,12 @@ vueRouter.beforeEach(function (to, from, next) {
     store.state.user = JSON.parse(localStorage.getItem('user'))
     store.state.token = store.state.user.token
   }
-  if (to.meta.requiredAuth) {
+  if (to.meta.requireAuth) {
     if (store.state.token) {
       next()
     } else {
       next({
-        path: '/login'
+        path: '/Login'
       })
     }
   } else {

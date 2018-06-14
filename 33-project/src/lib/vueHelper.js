@@ -5,11 +5,10 @@ import router from '../router'
 export const doLogin = (that, data) => {
   api.login(data)
     .then(res => {
-      console.log(res)
       if (res.data.code === 0) {
         localStorage.setItem('user', JSON.stringify(res.data.result))
-        store.dispatch('token', res.data.token)
-        store.dispatch('user', res.data.user)
+        store.dispatch('token', res.data.result.token)
+        store.dispatch('user', res.data.result)
         showMsg(that, true, '登录成功', 'success')
         router.push({name: 'MineCenter', params: res.data.result})
       }

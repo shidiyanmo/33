@@ -6,7 +6,9 @@ import router from './router'
 import ElementUI from 'element-ui'
 import store from './vuex/store'
 import 'element-ui/lib/theme-chalk/index.css'
+import { Dialog } from 'vant'
 
+Vue.use(Dialog)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

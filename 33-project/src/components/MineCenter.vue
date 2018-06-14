@@ -47,19 +47,19 @@
       </cell-group>
     </div>
 
-    <van-button class="login-button" type="primary" @click="loginOrLogout" bottom-action>{{isLogin ? '退出登录' : '登录'}}</van-button>
+    <van-button class="login-button" type="primary" @click="loginOrLogout" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
   </div>
 </template>
 
 <script>
-import {Cell, NavBar, CellGroup, Button, Row, Dialog} from 'vant'
+import { Cell, NavBar, CellGroup, Button, Dialog } from 'vant'
+import { doLogout, transformPhone } from '../lib/vueHelper'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import 'vant/packages/vant-css/lib/cell.css'
 import 'vant/packages/vant-css/lib/dialog.css'
 import 'vant/packages/vant-css/lib/button.css'
 import '../../static/css/style.css'
-import { transformPhone, doLogout } from '../lib/vueHelper'
 export default {
   name: 'MineCenter',
   data () {
@@ -70,8 +70,11 @@ export default {
       avaImg: ''
     }
   },
-  components: {
-    NavBar, Row, Cell, CellGroup, vanButton: Button
+  created () {
+    this.user = this.$store.state.user
+    this.isLogin = this.user.id
+    this.avaImg = this.user.avatar
+    this.showMobile = transformPhone(this, this.user.mobile)
   },
   methods: {
     // back () {
@@ -81,22 +84,20 @@ export default {
       if (this.isLogin) {
         Dialog.confirm({
           title: '提示',
-          message: '确认退出吗？'
+          message: '确认退出吗'
         }).then(() => {
+          // on confirm
           doLogout()
         }).catch(() => {
-
+          // on cancel
         })
       } else {
         this.$router.push('/Login')
       }
     }
   },
-  created () {
-    this.user = this.$store.state.user
-    this.isLogin = this.user.id
-    this.avaImg = this.user.avatar
-    this.showMobile = transformPhone(this, this.user.mobile)
+  components: {
+    NavBar, Cell, CellGroup, vanButton: Button
   }
 }
 </script>
@@ -141,7 +142,7 @@ export default {
   }
   .login-button {
     position: absolute;
-    left: 0;
-    bottom: 0;
+    left: 0px;
+    bottom: 0px;
   }
 </style>
