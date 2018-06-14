@@ -30,6 +30,7 @@ export const showMsg = (that, close, msg, type) => {
 export const doLogout = (that, data) => {
   localStorage.removeItem('user')
   store.dispatch('user', null)
+  router.push('/Login')
 }
 
 export const transformPhone = (that, data) => {

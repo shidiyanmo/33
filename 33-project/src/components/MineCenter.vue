@@ -7,7 +7,7 @@
 
     <div v-if="isLogin" class="header">
 
-      <figure :src="avaImg" class="icon">11</figure>
+      <img :src="user.avatar" class="icon" />
 
       <div class="info_container">
         <p class="name">{{user.name}}</p>
@@ -15,49 +15,51 @@
       </div>
     </div>
     <div v-if="isLogin">
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell value="付款" is-link :to="'/pay/' + user.mobile">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/financial_fill.png" slot="icon" />
         </cell>
       </cell-group>
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell value="操作记录" is-link to="/HandleHistory">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/document_fill.png" slot="icon" />
         </cell>
       </cell-group>
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell value="会员卡" is-link to="/VIPCard">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/businesscard_fill.png" slot="icon" />
         </cell>
       </cell-group>
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell value="会员协议" is-link to="/VIPProtocol">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/form_fill.png" slot="icon" />
         </cell>
       </cell-group>
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell value="我的积分" is-link to="/MyIntegral">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/integ_fill.png" slot="icon" />
         </cell>
       </cell-group>
-      <cell-group  border class="cell_group">
-        <cell value="" is-link to="">
-          <img class="cell_left-icon" src="" slot="icon" />
+      <cell-group border class="cell_group">
+        <cell :value="user.openid == 0 ? '绑定微信' : '已绑定微信'" is-link :to="user.openid == 0 ? '/BindWX' : ''">
+          <img class="van-cell__left-icon cell_left_icon" src="../assets/integ_fill.png" slot="icon" />
         </cell>
       </cell-group>
     </div>
+
+    <van-button class="login-button" type="primary" @click="loginOrLogout" bottom-action>{{isLogin ? '退出登录' : '登录'}}</van-button>
   </div>
 </template>
 
 <script>
-import {Cell, NavBar, CellGroup, Button, Row} from 'vant'
+import {Cell, NavBar, CellGroup, Button, Row, Dialog} from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import 'vant/packages/vant-css/lib/cell.css'
 import 'vant/packages/vant-css/lib/dialog.css'
 import 'vant/packages/vant-css/lib/button.css'
 import '../../static/css/style.css'
-import { transformPhone } from '../lib/vueHelper'
+import { transformPhone, doLogout } from '../lib/vueHelper'
 export default {
   name: 'MineCenter',
   data () {
@@ -75,6 +77,20 @@ export default {
     // back () {
     //   window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     // },
+    loginOrLogout () {
+      if (this.isLogin) {
+        Dialog.confirm({
+          title: '提示',
+          message: '确认退出吗？'
+        }).then(() => {
+          doLogout()
+        }).catch(() => {
+
+        })
+      } else {
+        this.$router.push('/Login')
+      }
+    }
   },
   created () {
     this.user = this.$store.state.user
@@ -101,17 +117,31 @@ export default {
     border-width: 1px;
     background-color: #d8d8d8;
     margin: 16px;
-    font-size: 5px;
   }
   .info_container {
     display: flex;flex-direction: column;justify-content: flex-start
   }
   .name {
     color: #fff;
-    text-align: left
+    text-align: left;
+    font-family: PingFangSC;
+    font-size: 14px;
   }
   .idNum {
     color: #fff;
-    text-align: left
+    text-align: left;
+    font-family: PingFangSC;
+    font-size: 12px
+  }
+  .cell_group {
+    margin-top: 10px;
+  }
+  .cell_left_icon {
+    width: 22px;height: 22px;margin-right: 10px
+  }
+  .login-button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 </style>
