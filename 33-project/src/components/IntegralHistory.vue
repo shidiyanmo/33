@@ -1,12 +1,12 @@
 <template>
   <div class="">
-
+IntegralHistory
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'IntegralHistory'
 }
 </script>
 

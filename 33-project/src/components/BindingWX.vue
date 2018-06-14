@@ -1,12 +1,12 @@
 <template>
   <div class="">
-
+BindingWX
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'BindingWX'
 }
 </script>
 

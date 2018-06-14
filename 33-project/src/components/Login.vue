@@ -1,6 +1,6 @@
 <template>
   <div class="root-view">
-    <nav-bar class="nav-bar" left-text="返回">
+    <nav-bar class="nav-bar">
       <span class="nav-title" slot="title">登录</span>
     </nav-bar>
     <div class="loginFull">
@@ -59,12 +59,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           var data = {
-            'username': this.loginForm.account,
-            'password': this.loginForm.pass
+            'username': this.loginForm.userName,
+            'password': this.loginForm.pwd
           }
           doLogin(this, data)
         } else {
-          // console.log('error')
           return false
         }
       })

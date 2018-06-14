@@ -1,12 +1,12 @@
 <template>
   <div class="">
-
+VIPCard
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'VIPCard'
 }
 </script>
 

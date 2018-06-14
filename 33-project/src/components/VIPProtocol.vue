@@ -1,12 +1,12 @@
 <template>
   <div class="">
-
+VIPPprotocol
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'VIPProtocol'
 }
 </script>
 

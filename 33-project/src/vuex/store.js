@@ -4,13 +4,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    showLogin: false,
+    captchaMsg: '发送验证码',
     token: null,
     user: null
   },
   mutations: {
-    SHOW_LOGIN (state) {
-      state.showLogin = !state.showLogin
+    UPDATE_CAPTCHA_MSG (state, data) {
+      state.captchaMsg = data
     },
     TOKEN (state, data) {
       state.token = data
@@ -20,8 +20,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    showLogin ({ commit }) {
-      commit('SHOW_LOGIN')
+    updateCaptchaMsg ({ commit }, data) {
+      commit('UPDATE_CAPTCHA_MSG', data)
     },
     token ({ commit }, data) {
       commit('TOKEN', data)
