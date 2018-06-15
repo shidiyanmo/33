@@ -58,7 +58,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const data = {
+          let data = {
             'username': this.loginForm.userName,
             'password': this.loginForm.pwd
           }

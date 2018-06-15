@@ -134,12 +134,12 @@ export default vueRouter
 vueRouter.beforeEach(function (to, from, next) {
   if (!store.state.user && localStorage.getItem('user') && localStorage.getItem('user').length > 0) {
     store.dispatch('user', JSON.parse(localStorage.getItem('user')))
-    store.dispatch('token', store.getters.getToken)
+    store.dispatch('token', store.getters.getUser.token)
     // store.state.user = JSON.parse(localStorage.getItem('user'))
     // store.state.token = store.state.user.token
   }
   if (to.meta.requireAuth) {
-    if (store.getters.getToken) {
+    if (store.state.token) {
       next()
     } else {
       next({

@@ -98,7 +98,7 @@ export default {
       } else {
         this.$router.push('/Login')
       }
-    }
+    } // xxx2
     // loginOrLogout () {
     //   if (this.isLogin) {
     //     Dialog.confirm({

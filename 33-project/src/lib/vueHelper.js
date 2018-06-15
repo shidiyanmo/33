@@ -42,6 +42,12 @@ export const transformPhone = (that, data) => {
   return arr.join('')
 }
 
+export const handleNeedLogin = (res) => {
+  if (res.data.code === 2) {
+    doLogout()
+  }
+}
+
 export const doRegister = (that, data) => {
   api.register(data)
     .then(res => {
@@ -57,5 +63,24 @@ export const doRegister = (that, data) => {
 }
 
 export const sendCaptcha = (that, data) => {
-
+  api.getCaptcha(data)
+    .then(res => { // xxx3
+      // handleNeedLogin(res)
+      let code = res.data.code
+      if (code === 0) {
+        store.dispatch('updateCatpchaMsg', '发送成功')
+        setTimeout(() => {
+          store.dispatch('updateCatpchaMsg', '发送验证码')
+        }, 60 * 1000)
+        showMsg(that, true, '发送成功', 'success')
+      } else if (code === 2) {
+        store.dispatch('updateCaptchaMsg', '已经发送')
+        showMsg(that, true, '已经发送，请勿重新发送', 'success')
+      } else {
+        showMsg(that, true, res.data.msg, 'error')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }

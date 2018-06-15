@@ -66,8 +66,8 @@ import { sendCaptcha, showMsg, doRegister } from '../lib/vueHelper'
 export default {
   name: 'Register',
   data () {
-    const validateUser = (rule, value, callback) => {
-      const pattern = /^(1[3|4|5|8|7|4][0-9]\d{8})$/g
+    let validateUser = (rule, value, callback) => {
+      let pattern = /^(1[3|4|5|8|7|4][0-9]\d{8})$/g
       if (value === '') {
         callback(new Error('请输入手机号'))
       } else if (!pattern.test(value)) {
@@ -76,8 +76,8 @@ export default {
         callback()
       }
     }
-    var validatePwd = (rule, value, cb) => {
-      var pattern = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,20}$/g
+    let validatePwd = (rule, value, cb) => {
+      let pattern = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,20}$/g
       if (value === '') {
         cb(new Error('请输入密码'))
       } else if (!pattern.test(value)) {
@@ -89,7 +89,7 @@ export default {
         cb()
       }
     }
-    var validateCheckPwd = (rule, value, cb) => {
+    let validateCheckPwd = (rule, value, cb) => {
       if (value === '') {
         cb(new Error('请再次输入密码'))
       } else if (value !== this.registerForm.pwd) {
@@ -156,7 +156,7 @@ export default {
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const data = {
+          let data = {
             'username': this.registerForm.userName,
             'password': this.registerForm.pwd,
             'code': this.registerForm.captcha,
@@ -178,8 +178,8 @@ export default {
         return
       }
       this.$refs.registerForm.validateField('userName', (valid) => {
-        if (!valid) {
-          const data = {
+        if (!valid) { // xxx2
+          let data = {
             mobile: this.registerForm.userName
           }
           sendCaptcha(this, data)

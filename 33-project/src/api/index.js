@@ -41,5 +41,8 @@ export default {
   },
   register (data) {
     return Axios.post(API.register, this.handleData(data))
+  },
+  getCaptcha (data) {
+    return Axios.post(API.getCaptcha, this.handleData(data))
   }
 }
