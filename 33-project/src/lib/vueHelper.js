@@ -55,3 +55,7 @@ export const doRegister = (that, data) => {
       console.log(err)
     })
 }
+
+export const sendCaptcha = (that, data) => {
+
+}
