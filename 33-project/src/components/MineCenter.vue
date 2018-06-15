@@ -47,12 +47,23 @@
       </cell-group>
     </div>
 
-    <van-button class="login-button" type="primary" @click="loginOrLogout" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
+    <van-button class="login-button" type="primary" @click="centerDialogVisible = true" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="80%"
+      center>
+      <span>确认退出</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="agreeAgreement">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { Cell, NavBar, CellGroup, Button, Dialog } from 'vant'
+import { Cell, NavBar, CellGroup, Button } from 'vant'
 import { doLogout, transformPhone } from '../lib/vueHelper'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
@@ -67,11 +78,12 @@ export default {
       isLogin: false,
       user: {},
       showMobile: '******',
-      avaImg: ''
+      avaImg: '',
+      centerDialogVisible: false
     }
   },
   created () {
-    this.user = this.$store.state.user
+    this.user = this.$store.getters.getUser
     this.isLogin = this.user.id
     this.avaImg = this.user.avatar
     this.showMobile = transformPhone(this, this.user.mobile)
@@ -80,21 +92,28 @@ export default {
     // back () {
     //   window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     // },
-    loginOrLogout () {
+    agreeAgreement () {
       if (this.isLogin) {
-        Dialog.confirm({
-          title: '提示',
-          message: '确认退出吗'
-        }).then(() => {
-          // on confirm
-          doLogout()
-        }).catch(() => {
-          // on cancel
-        })
+        doLogout()
       } else {
         this.$router.push('/Login')
       }
     }
+    // loginOrLogout () {
+    //   if (this.isLogin) {
+    //     Dialog.confirm({
+    //       title: '提示',
+    //       message: '确认退出吗'
+    //     }).then(() => {
+    //       // on confirm
+    //       doLogout()
+    //     }).catch(() => {
+    //       // on cancel
+    //     })
+    //   } else {
+    //     this.$router.push('/Login')
+    //   }
+    // }
   },
   components: {
     NavBar, Cell, CellGroup, vanButton: Button

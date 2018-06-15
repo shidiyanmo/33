@@ -3,7 +3,7 @@
     <nav-bar class="nav-bar">
       <span class="nav-title" slot="title">登录</span>
     </nav-bar>
-    <div class="loginFull">
+    <div class="loginWrapper">
       <div class="hd">
         <h2>超市欢迎您</h2>
       </div>
@@ -21,8 +21,8 @@
         </el-form>
       </div>
       <div class="ft">
-        <router-link to="">还没有账号？马上注册</router-link>
-        <router-link to="">忘记密码</router-link>
+        <router-link to="/register/re">还没有账号？马上注册</router-link>
+        <router-link to="register/forget">忘记密码</router-link>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          var data = {
+          const data = {
             'username': this.loginForm.userName,
             'password': this.loginForm.pwd
           }
@@ -77,7 +77,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .loginFull {
+  .loginWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,7 +86,7 @@ export default {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
     font-size: 18px;
   }
-  .loginFull .hd {
+  .loginWrapper .hd {
     margin-top: 32px;
     height: 100px;
     display: flex;
@@ -94,25 +94,25 @@ export default {
     justify-content: space-between;
     width: 300px;
   }
-  .loginFull .hd h2{
+  .loginWrapper .hd h2{
     font-weight: 400;
     color: #20A0FF;
   }
-  .loginFull .bd {
+  .loginWrapper .bd {
     margin-top: 32px;
     width: 300px;
   }
-  .loginFull .bd .submitBtn {
+  .loginWrapper .bd .submitBtn {
     width: 100%;
   }
-  .loginFull .ft {
+  .loginWrapper .ft {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 300px;
   }
-  .loginFull .ft a {
+  .loginWrapper .ft a {
     font-size: 14px;
     text-decoration: none;
     color: #20A0FF;

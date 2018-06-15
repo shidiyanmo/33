@@ -41,3 +41,17 @@ export const transformPhone = (that, data) => {
   arr[6] = '*'
   return arr.join('')
 }
+
+export const doRegister = (that, data) => {
+  api.register(data)
+    .then(res => {
+      if (res.data.code === 0) {
+        showMsg(that, true, '注册成功', 'success')
+      } else {
+        showMsg(that, true, res.data.msg, 'error')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}

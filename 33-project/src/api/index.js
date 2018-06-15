@@ -38,5 +38,8 @@ export default {
   },
   login (data) {
     return Axios.post(API.login, this.handleData(data))
+  },
+  register (data) {
+    return Axios.post(API.register, this.handleData(data))
   }
 }

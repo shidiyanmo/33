@@ -29,5 +29,16 @@ export default new Vuex.Store({
     user ({ commit }, data) {
       commit('USER', data)
     }
+  },
+  getters: {
+    getUser (state) {
+      return state.user
+    },
+    getToken (state) {
+      return state.token
+    },
+    getCaptchaMsg (state) {
+      return state.captchaMsg
+    }
   }
 })
