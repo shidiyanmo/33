@@ -44,5 +44,14 @@ export default {
   },
   getCaptcha (data) {
     return Axios.post(API.getCaptcha, this.handleData(data))
+  },
+  requestEnstr (token) {
+    return Axios.post('http://sansan.jdoni.com/api/common/setcode', {str: store.state.token})
+  },
+  getHandleHistory (data, headers) {
+    return Axios.post(API.handleHistory, this.handleData(data, headers))
+  },
+  getHandleDetail (data, headers) {
+    return Axios.post(API.getHandleDetail, this.handleData(data, headers))
   }
 }

@@ -8,7 +8,7 @@
         <h2>超市欢迎您</h2>
       </div>
       <div class="bd">
-        <el-form :model="loginForm" :rules="loginRule" ref="loginFormm">
+        <el-form :model="loginForm" :rules="loginRule" ref="loginForm">
           <el-form-item prop="userName">
             <el-input type="userName" v-model="loginForm.userName" placeholder="帐号"></el-input>
           </el-form-item>
@@ -16,7 +16,7 @@
             <el-input type="password" v-model="loginForm.pwd" placeholder="密码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginFormm')" class="submitBtn">登录</el-button>
+            <el-button type="primary" @click="submitForm('loginForm')" class="submitBtn">登录</el-button>
           </el-form-item>
         </el-form>
       </div>

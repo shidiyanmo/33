@@ -84,3 +84,29 @@ export const sendCaptcha = (that, data) => {
       console.log(err)
     })
 }
+
+export const getHandleHistory = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getHandleHistory(data, res.data.result).then(res => {
+        handleNeedLogin(res)
+        let code = res.data.code
+        if (code === 0) {
+          handle(res)
+        } else {
+          showMsg(that, true, res.data.msg, 'error')
+        }
+      })
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getHandleDetail = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      // api
+    }
+  })
+}

@@ -48,7 +48,7 @@
         </el-form>
       </div>
       <div class="ft">
-        <router-link to="/Login">重新登录</router-link>
+        <router-link to="/Login">已经有账号，重新登录</router-link>
       </div>
     </div>
   </div>
