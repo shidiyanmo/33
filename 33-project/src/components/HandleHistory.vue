@@ -47,29 +47,28 @@
         </div>
       </cell>
     </list>
-  </div>
 
-  <popup class="" v-model="showDetail" position="right">
-    <nav-bar class="nav-bar"
-              left-text="返回"
-              @click-left="showDetail = false"
-              left-arrow>
-      <span class="nav-title" slot="title">操作详情</span>
-    </nav-bar>
-    <list style="height:100%; overflow: scroll">
-      <cell-group>
-        <cell style="text-align: left" v-for="(value,key) in detail" :title="keys[key] ? keys[key] : key" :key="key" :value="key == 'type' ? value == 1 ? '会员卡支付' : '零售' : value">
+    <popup class="" v-model="showDetail" position="right">
+      <nav-bar class="nav-bar"
+                left-text="返回"
+                @click-left="showDetail = false"
+                left-arrow>
+        <span class="nav-title" slot="title">操作详情</span>
+      </nav-bar>
+      <list style="height:100%; overflow: scroll">
+        <cell-group>
+          <cell style="text-align: left" v-for="(value,key) in detail" :title="keys[key] ? keys[key] : key" :key="key" :value="key == 'type' ? value == 1 ? '会员卡支付' : '零售' : value">
+          </cell>
+        </cell-group>
+        <div v-if="goods && goods.length > 0" class="section-header-part">
+          <p class="section-title-part">商品信息</p>
+        </div>
+        <cell class="" style="text-align: left;align-items: center" v-for="(item,index) in goods" :title="item.name" :label="'数量：' + item.num + '     金额：' + item.price" :key="index">
+          <img :src="item.img" style="margin-right: 20px" width="80" height="80" slot="icon"/>
         </cell>
-      </cell-group>
-      <div v-if="goods && goods.length > 0" class="section-header-part">
-        <p class="section-title-part">商品信息</p>
-      </div>
-      <cell class="" style="text-align: left;align-items: center" v-for="(item,index) in goods" :title="item.name" :label="'数量：' + item.num + '     金额：' + item.price" :key="index">
-        <img :src="item.img" style="margin-right: 20px" width="80" height="80" slot="icon"/>
-      </cell>
-    </list>
-  </popup>
-
+      </list>
+    </popup>
+  </div>
 </template>
 
 <script>
@@ -80,7 +79,7 @@ import 'vant/packages/vant-css/lib/list.css'
 import 'vant/packages/vant-css/lib/cell.css'
 import 'vant/packages/vant-css/lib/popup.css'
 import '../../static/css/style.css'
-// import { getHandleHistory, showMsg, getHandleDetail } from '../lib/vueHelper'
+import { getHandleDetail, getHandleHistory, showMsg } from '../lib/vueHelper'
 export default {
   name: 'HandleHistory',
   data () {
@@ -121,17 +120,53 @@ export default {
 
     },
     search () {
-
+      this.page = 1
+      this.list = []
+      this.loading = false
+      this.finished = false
+      this.onLoad()
     },
     onLoad () {
-
+      let self = this
+      this.loading = true
+      getHandleHistory(this, {btime: this.btime, etime: this.etime, page: this.page}, res => {
+        if (res.data.result.length <= 0 && self.page === 1) {
+          showMsg(self, true, '无该时间段数据', 'error')
+          self.finished = true
+        } else if (res.data.result.length <= 0) {
+          showMsg(self, true, '没有更多了', 'error')
+          self.finished = true
+        } else {
+          let newArr = self.list.concat(res.data.result)
+          self.page++
+          self.list = newArr
+        }
+        self.loading = false
+      })
     },
     clickCell (item) {
-
+      this.showDetail = true
+      let self = this
+      getHandleDetail(this, {id: item.id, fixed: item.fixed}, res => {
+        if (res.data.result instanceof Array) {
+          self.detail = res.data.result[0]
+          self.goods = res.data.result[0].goods
+          delete self.detail['goods']
+        } else {
+          self.detail = res.data.result
+          self.goods = res.data.goods
+        }
+      })
     }
   },
   components: {
     NavBar, List, Cell, Popup, CellGroup
+  },
+  created () {
+    let date = new Date()
+    this.defaultEtime = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
+    date.setTime(date.getTime() - 1000 * 3600 * 24 * 7)
+    this.defaultBtime = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
   }
 }
 </script>
