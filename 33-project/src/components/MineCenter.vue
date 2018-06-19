@@ -47,7 +47,7 @@
       </cell-group>
     </div>
 
-    <van-button class="login-button" type="primary" @click="centerDialogVisible = true" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
+    <!-- <van-button class="login-button" type="primary" @click="centerDialogVisible = true" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
     <el-dialog
       title="提示"
       :visible.sync="centerDialogVisible"
@@ -58,12 +58,14 @@
         <el-button @click="centerDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="agreeAgreement">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
+
+    <van-button @click="loginOrLogOut" class="login-button" type="primary" bottom-action>{{!isLogin ? '登录' : '退出登录'}}</van-button>
   </div>
 </template>
 
 <script>
-import { Cell, NavBar, CellGroup, Button } from 'vant'
+import { Cell, NavBar, CellGroup, Button, Dialog } from 'vant'
 import { doLogout, transformPhone } from '../lib/vueHelper'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
@@ -89,27 +91,25 @@ export default {
     this.showMobile = transformPhone(this, this.user.mobile)
   },
   methods: {
-    // back () {
-    //   window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-    // },
-    agreeAgreement () {
+    loginOrLogOut () { // xxx2
       if (this.isLogin) {
-        doLogout()
+        Dialog.confirm({
+          title: '提示',
+          message: '确认退出吗'
+        }).then(() => {
+          // on confirm
+          doLogout()
+        }).catch(() => {
+          // on cancel
+
+        })
       } else {
         this.$router.push('/Login')
       }
-    } // xxx2
-    // loginOrLogout () {
+    }
+    // agreeAgreement () {
     //   if (this.isLogin) {
-    //     Dialog.confirm({
-    //       title: '提示',
-    //       message: '确认退出吗'
-    //     }).then(() => {
-    //       // on confirm
-    //       doLogout()
-    //     }).catch(() => {
-    //       // on cancel
-    //     })
+    //     doLogout()
     //   } else {
     //     this.$router.push('/Login')
     //   }

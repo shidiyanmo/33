@@ -88,7 +88,67 @@ export const sendCaptcha = (that, data) => {
 export const getHandleHistory = (that, data, handle) => {
   api.requestEnstr().then(res => {
     if (res.data.code === 0) {
-      api.getHandleHistory(data, res.data.result).then(res => {
+      api.getHandleHistory(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+}
+
+export const getHandleDetail = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getHandleDetail(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+}
+
+export const getVIPCardInfo = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getVIPCardInfo(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+}
+
+export const getIntegral = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getIntegral(data, res.data.result).then(res => {
         handleNeedLogin(res)
         let code = res.data.code
         if (code === 0) {
@@ -97,16 +157,28 @@ export const getHandleHistory = (that, data, handle) => {
           showMsg(that, true, res.data.msg, 'error')
         }
       })
+        .catch(err => {
+          console.log(err)
+        })
     }
-  }).catch(err => {
-    console.log(err)
   })
 }
 
-export const getHandleDetail = (that, data, handle) => {
+export const getVIPSign = (that, data, handle) => {
   api.requestEnstr().then(res => {
     if (res.data.code === 0) {
-      // api
+      api.getVIPSign(data, res.data.result).then(res => {
+        handleNeedLogin(res)
+        let code = res.data.code
+        if (code === 0) {
+          handle(res)
+        } else {
+          showMsg(that, true, res.data.msg, 'success')
+        }
+      })
+        .catch(err => {
+          console.log(err)
+        })
     }
   })
 }

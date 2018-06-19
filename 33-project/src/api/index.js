@@ -53,5 +53,14 @@ export default {
   },
   getHandleDetail (data, headers) {
     return Axios.post(API.getHandleDetail, this.handleData(data, headers))
+  },
+  getVIPCardInfo (data, headers) {
+    return Axios.post(API.vipCardInfo, this.handleData(data, headers))
+  },
+  getIntegral (data, headers) {
+    return Axios.post(API.integral, this.handleData(data, headers))
+  },
+  getVIPSign (data, headers) {
+    return Axios.post(API.VIPSign, this.handleData(data, headers))
   }
 }
