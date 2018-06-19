@@ -55,14 +55,14 @@
 </template>
 
 <script>
-import { NavBar } from 'vant'
+import {NavBar} from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import '../../static/css/style.css'
 import Protocol from './Protocol'
 // import { mapState } from 'vuex'
 import store from '../vuex/store'
-import { sendCaptcha, showMsg, doRegister } from '../lib/vueHelper'
+import {sendCaptcha, showMsg, doRegister} from '../lib/vueHelper'
 export default {
   name: 'Register',
   data () {

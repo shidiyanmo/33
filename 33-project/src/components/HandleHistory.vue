@@ -79,7 +79,7 @@ import 'vant/packages/vant-css/lib/list.css'
 import 'vant/packages/vant-css/lib/cell.css'
 import 'vant/packages/vant-css/lib/popup.css'
 import '../../static/css/style.css'
-import { getHandleDetail, getHandleHistory, showMsg } from '../lib/vueHelper'
+import {getHandleDetail, getHandleHistory, showMsg} from '../lib/vueHelper'
 export default {
   name: 'HandleHistory',
   data () {

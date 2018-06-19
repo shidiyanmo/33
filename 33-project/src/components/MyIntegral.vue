@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import { NavBar } from 'vant'
+import {NavBar} from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import '../../static/css/style.css'
-import { getIntegral } from '../lib/vueHelper'
+import {getIntegral} from '../lib/vueHelper'
 export default {
   name: 'MineIntegral',
   data () {

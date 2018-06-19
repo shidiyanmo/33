@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import { NavBar } from 'vant'
+import {NavBar} from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
-import { getVIPCardInfo } from '../lib/vueHelper'
+import {getVIPCardInfo} from '../lib/vueHelper'
 import '../../static/css/style.css'
 export default {
   name: 'VIPCard',

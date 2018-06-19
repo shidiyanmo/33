@@ -65,8 +65,8 @@
 </template>
 
 <script>
-import { Cell, NavBar, CellGroup, Button, Dialog } from 'vant'
-import { doLogout, transformPhone } from '../lib/vueHelper'
+import {Cell, NavBar, CellGroup, Button, Dialog} from 'vant'
+import {doLogout, transformPhone} from '../lib/vueHelper'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import 'vant/packages/vant-css/lib/cell.css'

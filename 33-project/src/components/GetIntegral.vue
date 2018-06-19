@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import { NavBar, Cell, CellGroup, Dialog } from 'vant'
+import {NavBar, Cell, CellGroup, Dialog} from 'vant'
 import 'vant/packages/vant-css/lib/base.css'
 import 'vant/packages/vant-css/lib/nav-bar.css'
 import 'vant/packages/vant-css/lib/cell.css'
 import 'vant/packages/vant-css/lib/dialog.css'
-import { getVIPSign, showMsg } from '../lib/vueHelper'
+import {getVIPSign, showMsg} from '../lib/vueHelper'
 import '../../static/css/style.css'
 export default {
   name: 'GetIntegral',
