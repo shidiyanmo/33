@@ -165,11 +165,8 @@ export default {
   created () {
     let date = new Date()
     this.defaultEtime = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
-    console.log(this.defaultEtime)
     date.setTime(date.getTime() - 1000 * 3600 * 24 * 7)
-    console.log(date)
     this.defaultBtime = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
-    console.log(this.defaultBtime)
   }
 }
 </script>

@@ -33,7 +33,7 @@ export const doLogout = (that, data) => {
 }
 
 export const transformPhone = (that, data) => {
-  let mobileS = data
+  let mobileS = data + '' // xxx3
   let arr = mobileS.split('')
   arr[3] = '*'
   arr[4] = '*'
@@ -64,7 +64,7 @@ export const doRegister = (that, data) => {
 
 export const sendCaptcha = (that, data) => {
   api.getCaptcha(data)
-    .then(res => { // xxx3
+    .then(res => { // xxx2
       // handleNeedLogin(res)
       let code = res.data.code
       if (code === 0) {
@@ -148,15 +148,16 @@ export const getVIPCardInfo = (that, data, handle) => {
 export const getIntegral = (that, data, handle) => {
   api.requestEnstr().then(res => {
     if (res.data.code === 0) {
-      api.getIntegral(data, res.data.result).then(res => {
-        handleNeedLogin(res)
-        let code = res.data.code
-        if (code === 0) {
-          handle(res)
-        } else {
-          showMsg(that, true, res.data.msg, 'error')
-        }
-      })
+      api.getIntegral(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
         .catch(err => {
           console.log(err)
         })
@@ -167,15 +168,56 @@ export const getIntegral = (that, data, handle) => {
 export const getVIPSign = (that, data, handle) => {
   api.requestEnstr().then(res => {
     if (res.data.code === 0) {
-      api.getVIPSign(data, res.data.result).then(res => {
-        handleNeedLogin(res)
-        let code = res.data.code
-        if (code === 0) {
-          handle(res)
-        } else {
-          showMsg(that, true, res.data.msg, 'success')
-        }
-      })
+      api.getVIPSign(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'success')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+}
+
+export const getIntegralHistory = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getIntegralHistory(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  })
+}
+
+export const getPayQRCode = (that, data, handle) => {
+  api.requestEnstr().then(res => {
+    if (res.data.code === 0) {
+      api.getPayQRCode(data, res.data.result)
+        .then(res => {
+          handleNeedLogin(res)
+          let code = res.data.code
+          if (code === 0) {
+            handle(res)
+          } else {
+            showMsg(that, true, res.data.msg, 'error')
+          }
+        })
         .catch(err => {
           console.log(err)
         })

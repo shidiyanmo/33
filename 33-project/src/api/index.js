@@ -62,5 +62,11 @@ export default {
   },
   getVIPSign (data, headers) {
     return Axios.post(API.VIPSign, this.handleData(data, headers))
+  },
+  getIntegralHistory (data, headers) {
+    return Axios.post(API.integralHistory, this.handleData(data, headers))
+  },
+  getPayQRCode (data, headers) {
+    return Axios.post(API.getPayQRCode, this.handleData(data, headers))
   }
 }
