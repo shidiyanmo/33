@@ -27,7 +27,7 @@ export default {
     },
     theme: {
       type: String,
-      default: 'blockd'
+      default: 'block'
     }
   },
   data () {

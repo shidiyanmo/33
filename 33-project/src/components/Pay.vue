@@ -2,11 +2,10 @@
   <div class="root-view">
     <nav-bar class="nav-bar"
              left-text="返回"
-             @cllick-left="back"
+             @click-left="back"
              left-arrow>
       <span class="nav-title" slot="title">付款</span>
     </nav-bar>
-
     <div v-if="!showPayInfo">
       <div style="margin-top: 84px">
         <span class="info">验证码已发至{{showMobile}}</span>
@@ -17,11 +16,10 @@
         {{time > 0 ? '重新获取（' + time + '）' : '重新获取'}}
       </van-button>
     </div>
-
     <div v-if="showPayInfo" class="payInfo">
       <img src="../assets/pay-bg.png" class="pay-bg">
       <div class="payInfo2">
-        <img :src="qrcode" v-if="qrcode.length > 0" class="qr-code"/>
+        <img class="qr-code" v-if="qrcode.length > 0" :src="qrcode"/>
       </div>
     </div>
   </div>
@@ -52,6 +50,7 @@ export default {
   methods: {
     handleSubmit () {
       if (this.code.length === 4) {
+        // let user = this.$store.state.user
         let self = this
         getPayQRCode(this, {code: this.code}, res => {
           self.qrcode = res.data.result
@@ -67,10 +66,9 @@ export default {
       }
     },
     back () {
-      console.log(1)
       window.history.length > 1
         ? this.$router.go(-1)
-        : this.$roter.push('/')
+        : this.$router.push('/')
     },
     timer () {
       let timer = setInterval(() => {
@@ -85,8 +83,7 @@ export default {
     NavBar, VanButton: Button, Dialog, SecurityCode
   },
   created () {
-    this.mobile = 18565665856
-    // this.mobile = this.$route.params.phone
+    this.mobile = this.$route.params.phone
     this.showMobile = transformPhone(this, this.mobile)
     console.log('created')
     Dialog.confirm({
